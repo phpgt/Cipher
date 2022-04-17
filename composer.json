@@ -1,0 +1,39 @@
+{
+	"name": "phpgt/cipher",
+	"description": "Two-way encryption of messages for secure plain text transmission.",
+	"type": "library",
+	"require": {
+		"php": ">=8.0",
+		"ext-openssl": "*"
+	},
+	"require-dev": {
+		"phpstan/phpstan": "^1.4",
+		"phpunit/phpunit": "^9.5"
+	},
+	"autoload": {
+		"psr-0": {
+			"Gt\\Cipher\\": "./src"
+		}
+	},
+	"autoload-dev": {
+		"psr-0": {
+			"Gt\\Cipher\\Test\\": "./test/phpunit"
+		}
+	},
+
+	"authors": [
+		{
+			"name": "Greg Bowler",
+			"homepage": "https://www.g105b.com",
+			"email": "greg.bowler@g105b.com",
+			"role": "Developer"
+		}
+	],
+
+	"funding": [
+		{
+			"type": "github",
+			"url": "https://github.com/sponsors/PhpGt"
+		}
+	]
+}
