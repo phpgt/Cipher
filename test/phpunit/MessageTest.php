@@ -1,11 +1,20 @@
 <?php
 namespace Gt\Cipher\Test;
 
+use Gt\Cipher\CipherException;
 use Gt\Cipher\InitVector;
 use Gt\Cipher\Message;
 use PHPUnit\Framework\TestCase;
 
 class MessageTest extends TestCase {
+	public function testConstruct_invalidAlgo():void {
+		self::expectException(CipherException::class);
+		self::expectExceptionMessage("Unknown cipher algorithm");
+		new Message("message", "privateKey", options: [
+			"algo" => "this does not exist",
+		]);
+	}
+
 	public function testGetIv_constructWithIv():void {
 		$iv = self::createMock(InitVector::class);
 		$sut = new Message("message", "private key", $iv);
@@ -37,5 +46,16 @@ class MessageTest extends TestCase {
 		$sut = new Message($message, $privateKey, $iv);
 		$cipherText = $sut->getCipherText();
 		self::assertSame(bin2hex($expectedEncrypted), $cipherText);
+	}
+
+	public function testGetCipherText_invalidIv():void {
+		$iv = self::createMock(InitVector::class);
+		$iv->method("getBytes")
+			->willReturn("too short");
+
+		self::expectException(CipherException::class);
+		self::expectExceptionMessage("IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes");
+		$sut = new Message("message", "privateKey", $iv);
+		$sut->getCipherText();
 	}
 }
