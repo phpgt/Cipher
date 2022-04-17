@@ -11,12 +11,12 @@
 		"phpunit/phpunit": "^9.5"
 	},
 	"autoload": {
-		"psr-0": {
+		"psr-4": {
 			"Gt\\Cipher\\": "./src"
 		}
 	},
 	"autoload-dev": {
-		"psr-0": {
+		"psr-4": {
 			"Gt\\Cipher\\Test\\": "./test/phpunit"
 		}
 	},
