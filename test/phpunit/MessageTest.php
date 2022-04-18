@@ -9,9 +9,9 @@ use PHPUnit\Framework\TestCase;
 class MessageTest extends TestCase {
 	public function testConstruct_invalidAlgo():void {
 		self::expectException(CipherException::class);
-		self::expectExceptionMessage("Unknown cipher algorithm");
+		self::expectExceptionMessage("Unknown cipher algorithm: made-up-123");
 		new Message("message", "privateKey", options: [
-			"algo" => "this does not exist",
+			"algo" => "made-up-123",
 		]);
 	}
 
@@ -54,7 +54,7 @@ class MessageTest extends TestCase {
 			->willReturn("too short");
 
 		self::expectException(CipherException::class);
-		self::expectExceptionMessage("IV passed is only 9 bytes long, cipher expects an IV of precisely 16 bytes");
+		self::expectExceptionMessage("aes-256-ctr ciphers require 16 bytes, 9 provided");
 		$sut = new Message("message", "privateKey", $iv);
 		$sut->getCipherText();
 	}

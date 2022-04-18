@@ -3,55 +3,25 @@ namespace Gt\Cipher;
 
 use Exception;
 
-class Message {
-	const DEFAULT_OPTIONS = [
-		"algo" => "aes-256-ctr",
-	];
-
-	private string $algo;
-	private InitVector $iv;
-
-	/**
-	 * @param array<string, string|int> $options
-	 */
-	public function __construct(
-		private string $message,
-		private string $privateKey,
-		InitVector $iv = null,
-		array $options = self::DEFAULT_OPTIONS,
-	) {
-		if(is_null($iv)) {
-			try {
-				$iv = new InitVector(
-					openssl_cipher_iv_length((string)$options["algo"]) ?: 0
-				);
-			}
-			catch(Exception $e) {
-				throw new CipherException($e->getMessage());
-			}
-		}
-		$this->iv = $iv;
-
-		$this->algo = (string)$options["algo"];
-	}
-
+class Message extends AbstractMessage {
 	public function getIv():InitVector {
 		return $this->iv;
 	}
 
 	public function getCipherText():string {
-		try {
-			$encrypted = (string)openssl_encrypt(
-				$this->message,
-				$this->algo,
-				$this->privateKey,
-				0,
-				$this->iv->getBytes(),
-			);
-			return bin2hex($encrypted);
+		$ivBytes = $this->iv->getBytes();
+		$requiredIvLength = openssl_cipher_iv_length($this->algo);
+		$providedIvLength = strlen($ivBytes);
+		if($providedIvLength !== $requiredIvLength) {
+			throw new CipherException("$this->algo ciphers require $requiredIvLength bytes, $providedIvLength provided");
 		}
-		catch(Exception $e) {
-			throw new CipherException($e->getMessage());
-		}
+		$encrypted = openssl_encrypt(
+			$this->data,
+			$this->algo,
+			$this->privateKey,
+			0,
+			$ivBytes,
+		);
+		return bin2hex((string)$encrypted);
 	}
 }

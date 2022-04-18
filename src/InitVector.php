@@ -10,7 +10,7 @@ class InitVector implements Stringable {
 		int $byteLength = 16
 	) {
 		if($byteLength < 1) {
-			throw new CipherException("IV byte length must be positive");
+			throw new CipherException("IV byte length must be greater than 1");
 		}
 		$this->bytes = random_bytes($byteLength);
 	}
