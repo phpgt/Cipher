@@ -1,8 +1,6 @@
 <?php
 namespace Gt\Cipher;
 
-use Exception;
-
 class Message extends AbstractMessage {
 	public function getIv():InitVector {
 		return $this->iv;

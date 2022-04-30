@@ -4,7 +4,8 @@
 	"type": "library",
 	"require": {
 		"php": ">=8.0",
-		"ext-openssl": "*"
+		"ext-openssl": "*",
+		"phpgt/http": "v1.*"
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^1.4",

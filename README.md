@@ -1,11 +1,13 @@
 Two-way encryption of messages for secure plain text transmission.
 ==================================================================
 
-When messages are passed between two systems via a public network, encryption tools must be used to secure the communication channel. The process of encrypting and decrypting a message is complex, but is simplified in this repository by providing the `Message` and `EncryptedMessage` class abstractions.
+When messages are passed between two systems via a public network, encryption tools must be used to secure the communication channel. The process of encrypting and decrypting a message is complex and prone to errors, but is simplified in this repository by providing the `Message` and `EncryptedMessage` class abstractions.
 
-Pass your plain text message to the `Message` constructor along with a private key, and you are provided with the ciphertext and an initialisation vector (IV). These two strings can be passed to the receiver by any communication mechanism, safe in the knowledge that the contents can not be read without the private key.
+Pass your plain text message to the `Message` constructor along with a private key, and you can call `getCipherText()` and `getIv()`. These two strings can be passed to the receiver by any communication mechanism, safe in the knowledge that the contents can not be read without the private key.
 
-On the receiver, construct an `EncryptedMessage` with the incoming ciphertext, and the same private key and IV, and the original message can be read.
+On the receiver, construct an `EncryptedMessage` with the incoming ciphertext, and the same private key and IV, and the original message can be read. 
+
+The `URIAdapter` class can be used to convert from a `Message` to a URI query string, or from a URI to an `EncryptedMessage`. 
 
 ***
 
@@ -33,9 +35,9 @@ On the receiver, construct an `EncryptedMessage` with the incoming ciphertext, a
 $message = "Hello, PHP.Gt!";
 $privateKey = "This can be any string, but a long random string is best.";
 
-$cipher = new \Gt\Cipher\Message($message, $privateKey);
+$message = new \Gt\Cipher\Message($message, $privateKey);
 // Redirect to sender.php, possibly on another server:
-header("Location: /receiver.php?cipher=$cipher&iv=" . $cipher->getIv());
+header("Location: " . new \Gt\Cipher\UriAdapter($message, "/sender.php"));
 ```
 
 `receiver.php`:
