@@ -22,7 +22,11 @@ abstract class AbstractMessage {
 		array $options = self::DEFAULT_OPTIONS,
 	) {
 		if(is_null($iv)) {
-			$length = openssl_cipher_iv_length((string)$options["algo"]);
+			$length = false;
+			if(in_array((string)$options["algo"], openssl_get_cipher_methods(true))) {
+				$length = openssl_cipher_iv_length((string)$options["algo"]);
+			}
+
 			if(false === $length) {
 				throw new CipherException("Unknown cipher algorithm: $options[algo]");
 			}
