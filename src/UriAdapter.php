@@ -1,6 +1,7 @@
 <?php
 namespace Gt\Cipher;
 
+use Psr\Http\Message\UriInterface;
 use Stringable;
 use Gt\Http\Uri;
 
@@ -8,20 +9,25 @@ class UriAdapter implements Stringable {
 	const KEY_CIPHER = "cipher";
 	const KEY_IV = "iv";
 
-	private Uri $uri;
+	private UriInterface $uri;
 
 	public function __construct(
 		private Message $message,
-		null|string|Uri $uri = null,
+		null|string|UriInterface $uri = null,
 	) {
-		$this->uri = new Uri($uri);
+		if($uri instanceof UriInterface) {
+			$this->uri = $uri;
+		}
+		else {
+			$this->uri = new Uri($uri);
+		}
 	}
 
 	public function __toString():string {
 		return (string)$this->getUri();
 	}
 
-	public function getUri():Uri {
+	public function getUri():UriInterface {
 		$uri = new Uri((string)$this->uri);
 		foreach($this->getNewQueryStringParts() as $key => $value) {
 			$uri = $uri->withQueryValue($key, $value);

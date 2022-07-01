@@ -54,10 +54,10 @@ class URIAdapterTest extends TestCase {
 
 		$sut = new UriAdapter($message, $uri);
 		$queryStringParts = $sut->getQueryStringParts();
-		self::assertSame("Cody", $queryStringParts["name"]);
-		self::assertSame("feline", $queryStringParts["species"]);
 		self::assertSame($ivString, $queryStringParts[UriAdapter::KEY_IV]);
 		self::assertSame($cipherString, $queryStringParts[UriAdapter::KEY_CIPHER]);
+		self::assertSame("Cody", $queryStringParts["name"] ?? "");
+		self::assertSame("feline", $queryStringParts["species"] ?? "");
 	}
 
 	public function testGetQueryString():void {
