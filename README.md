@@ -36,13 +36,14 @@ $message = "Hello, PHP.Gt!";
 $privateKey = "This can be any string, but a long random string is best.";
 
 $message = new \Gt\Cipher\Message($message, $privateKey);
-// Redirect to sender.php, possibly on another server:
-header("Location: " . new \Gt\Cipher\UriAdapter($message, "/sender.php"));
+// Redirect to receiver.php, possibly on another server:
+header("Location: " . new \Gt\Cipher\UriAdapter($message, "/receiver.php"));
 ```
 
 `receiver.php`:
 
 ```php
+// This key must be the same on the sender and receiver!
 $privateKey = "This can be any string, but a long random string is best.";
 $cipher = new \Gt\Cipher\EncryptedMessage($_GET["cipher"], $_GET["iv"], $privateKey);
 echo $cipher->getMessage();
