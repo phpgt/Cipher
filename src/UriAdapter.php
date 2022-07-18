@@ -12,7 +12,7 @@ class UriAdapter implements Stringable {
 	private UriInterface $uri;
 
 	public function __construct(
-		private Message $message,
+		private PlainTextMessage $message,
 		null|string|UriInterface $uri = null,
 	) {
 		if($uri instanceof UriInterface) {

@@ -2,7 +2,7 @@
 namespace Gt\Cipher\Test;
 
 use Gt\Cipher\InitVector;
-use Gt\Cipher\Message;
+use Gt\Cipher\PlainTextMessage;
 use Gt\Cipher\UriAdapter;
 use Gt\Http\Uri;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -16,8 +16,8 @@ class URIAdapterTest extends TestCase {
 		$iv = self::createMock(InitVector::class);
 		$iv->method("__toString")
 			->willReturn($ivString);
-		/** @var MockObject|Message $message */
-		$message = self::getMockBuilder(Message::class)
+		/** @var MockObject|PlainTextMessage $message */
+		$message = self::getMockBuilder(PlainTextMessage::class)
 			->disableOriginalConstructor()
 			->getMock();
 		$message->method("getIv")
@@ -40,8 +40,8 @@ class URIAdapterTest extends TestCase {
 		$iv = self::createMock(InitVector::class);
 		$iv->method("__toString")
 			->willReturn($ivString);
-		/** @var MockObject|Message $message */
-		$message = self::getMockBuilder(Message::class)
+		/** @var MockObject|PlainTextMessage $message */
+		$message = self::getMockBuilder(PlainTextMessage::class)
 			->disableOriginalConstructor()
 			->getMock();
 		$message->method("getIv")
@@ -67,8 +67,8 @@ class URIAdapterTest extends TestCase {
 		$iv = self::createMock(InitVector::class);
 		$iv->method("__toString")
 			->willReturn($ivString);
-		/** @var MockObject|Message $message */
-		$message = self::getMockBuilder(Message::class)
+		/** @var MockObject|PlainTextMessage $message */
+		$message = self::getMockBuilder(PlainTextMessage::class)
 			->disableOriginalConstructor()
 			->getMock();
 		$message->method("getIv")
@@ -92,8 +92,8 @@ class URIAdapterTest extends TestCase {
 		$iv = self::createMock(InitVector::class);
 		$iv->method("__toString")
 			->willReturn($ivString);
-		/** @var MockObject|Message $message */
-		$message = self::getMockBuilder(Message::class)
+		/** @var MockObject|PlainTextMessage $message */
+		$message = self::getMockBuilder(PlainTextMessage::class)
 			->disableOriginalConstructor()
 			->getMock();
 		$message->method("getIv")
@@ -124,8 +124,8 @@ class URIAdapterTest extends TestCase {
 		$iv = self::createMock(InitVector::class);
 		$iv->method("__toString")
 			->willReturn($ivString);
-		/** @var MockObject|Message $message */
-		$message = self::getMockBuilder(Message::class)
+		/** @var MockObject|PlainTextMessage $message */
+		$message = self::getMockBuilder(PlainTextMessage::class)
 			->disableOriginalConstructor()
 			->getMock();
 		$message->method("getIv")
@@ -159,8 +159,8 @@ class URIAdapterTest extends TestCase {
 		$iv = self::createMock(InitVector::class);
 		$iv->method("__toString")
 			->willReturn($ivString);
-		/** @var MockObject|Message $message */
-		$message = self::getMockBuilder(Message::class)
+		/** @var MockObject|PlainTextMessage $message */
+		$message = self::getMockBuilder(PlainTextMessage::class)
 			->disableOriginalConstructor()
 			->getMock();
 		$message->method("getIv")

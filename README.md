@@ -35,7 +35,7 @@ The `URIAdapter` class can be used to convert from a `Message` to a URI query st
 $message = "Hello, PHP.Gt!";
 $privateKey = "This can be any string, but a long random string is best.";
 
-$message = new \Gt\Cipher\Message($message, $privateKey);
+$message = new \Gt\Cipher\PlainTextMessage($message, $privateKey);
 // Redirect to receiver.php, possibly on another server:
 header("Location: " . new \Gt\Cipher\UriAdapter($message, "/receiver.php"));
 ```
