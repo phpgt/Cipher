@@ -19,6 +19,12 @@ class InitVector implements Stringable {
 		return $this->bytes;
 	}
 
+	public function withBytes(string $bytes):self {
+		$clone = clone $this;
+		$clone->bytes = $bytes;
+		return $clone;
+	}
+
 	public function __toString():string {
 		return bin2hex($this->bytes);
 	}

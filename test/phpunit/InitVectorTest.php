@@ -22,4 +22,12 @@ class InitVectorTest extends TestCase {
 		$hex = (string)$sut;
 		self::assertMatchesRegularExpression("/[0-9a-f]{32}/", $hex);
 	}
+
+	public function testWithBytes():void {
+		$sut = new InitVector();
+		$originalBytes = $sut->getBytes();
+		$sut2 = $sut->withBytes("changed");
+		self::assertSame("changed", $sut2->getBytes());
+		self::assertSame($originalBytes, $sut->getBytes());
+	}
 }
