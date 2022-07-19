@@ -1,4 +1,5 @@
 <?php
+use Gt\Cipher\EncryptedUri;
 use Gt\Cipher\KeyPair;
 use Gt\Cipher\Message\EncryptedMessage;
 use Gt\Cipher\Message\PlainTextMessage;
@@ -15,12 +16,19 @@ $cipherText = $message->encrypt(
 	$senderKeyPair->getPrivateKey(),
 	$receiverKeyPair->getPublicKey(),
 );
-echo "Cipher: $cipherText", PHP_EOL;
+$uri = $cipherText->getUri("https://example.com/");
+echo "URI: $uri", PHP_EOL;
 
-$encryptedMessage = new EncryptedMessage($cipherText, $message->getIv());
-$decrypted = $encryptedMessage->decrypt(
+// At this point, the remote code at example.com has access to the encrypted
+// message from the URI's query string parameters.
+
+// The following code represents the receiving side of the platform:
+$incomingUri = (string)$uri;
+$encryptedUri = new EncryptedUri(
+	$uri,
 	$receiverKeyPair->getPrivateKey(),
 	$senderKeyPair->getPublicKey(),
 );
+$plainTextMessage = $encryptedUri->decryptMessage();
 
-echo "Decrypted: $decrypted", PHP_EOL;
+echo "Decrypted: $plainTextMessage", PHP_EOL;

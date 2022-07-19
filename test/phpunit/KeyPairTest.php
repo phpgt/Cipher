@@ -35,7 +35,7 @@ class KeyPairTest extends TestCase {
 
 	public function testConstruct_defaultParameters():void {
 		$sut = new KeyPair();
-		self::assertSame(SODIUM_CRYPTO_BOX_SECRETKEYBYTES, strlen($sut->getPrivateKey()));
-		self::assertSame(SODIUM_CRYPTO_BOX_PUBLICKEYBYTES, strlen($sut->getPublicKey()));
+		self::assertSame(SODIUM_CRYPTO_BOX_SECRETKEYBYTES, strlen($sut->getPrivateKey()->getBytes()));
+		self::assertSame(SODIUM_CRYPTO_BOX_PUBLICKEYBYTES, strlen($sut->getPublicKey()->getBytes()));
 	}
 }

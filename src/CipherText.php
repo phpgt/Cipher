@@ -1,6 +1,8 @@
 <?php
 namespace Gt\Cipher;
 
+use Gt\Http\Uri;
+use Psr\Http\Message\UriInterface;
 use Stringable;
 
 class CipherText implements Stringable {
@@ -12,8 +14,8 @@ class CipherText implements Stringable {
 		private KeyPair $keyPair,
 	) {
 		$lockingKeyPair = sodium_crypto_box_keypair_from_secretkey_and_publickey(
-			$this->keyPair->getPrivateKey(),
-			$this->keyPair->getPublicKey(),
+			$this->keyPair->getPrivateKey()->getBytes(),
+			$this->keyPair->getPublicKey()->getBytes(),
 		);
 		$this->bytes = sodium_crypto_box(
 			$data,
@@ -28,5 +30,16 @@ class CipherText implements Stringable {
 
 	public function getBytes():string {
 		return $this->bytes;
+	}
+
+	public function getUri(string|UriInterface $baseUri = ""):UriInterface {
+		if(!$baseUri instanceof UriInterface) {
+			$baseUri = new Uri($baseUri);
+		}
+
+		return $baseUri
+			->withQueryValue("cipher", (string)$this)
+			->withQueryValue("iv", (string)$this->iv)
+			->withQueryValue("key", (string)$this->keyPair->getPrivateKey()->getMatchingPublicKey());
 	}
 }
