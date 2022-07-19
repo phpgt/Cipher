@@ -37,9 +37,12 @@ class CipherText implements Stringable {
 			$baseUri = new Uri($baseUri);
 		}
 
-		return $baseUri
-			->withQueryValue("cipher", (string)$this)
-			->withQueryValue("iv", (string)$this->iv)
-			->withQueryValue("key", (string)$this->keyPair->getPrivateKey()->getMatchingPublicKey());
+		$currentQuery = $baseUri->getQuery();
+		parse_str($currentQuery, $queryParams);
+		$queryParams["cipher"] = (string)$this;
+		$queryParams["iv"] = (string)$this->iv;
+		$queryParams["key"] = (string)$this->keyPair->getPrivateKey()->getMatchingPublicKey();
+
+		return $baseUri->withQuery(http_build_query($queryParams));
 	}
 }

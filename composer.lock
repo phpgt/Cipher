@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "26d5025a5bbb086d6fc35cd12e47a8f0",
+    "content-hash": "ba9d899a85eb8853ae32af88d412a05d",
     "packages": [
         {
             "name": "phpgt/http",
@@ -2291,7 +2291,7 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.0",
-        "ext-openssl": "*"
+        "ext-sodium": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"
