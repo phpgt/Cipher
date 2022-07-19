@@ -3,10 +3,16 @@ namespace Gt\Cipher;
 
 use Stringable;
 
-class Key implements Stringable {
+abstract class Key implements Stringable {
+	protected string $bytes;
+
 	public function __construct(
-		private string $bytes
-	) {}
+		?string $bytes = null
+	) {
+		$this->bytes = $bytes ?? $this->generateRandomBytes();
+	}
+
+	abstract protected function generateRandomBytes():string;
 
 	public function __toString():string {
 		return base64_encode($this->bytes);
