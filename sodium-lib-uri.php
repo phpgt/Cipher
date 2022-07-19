@@ -1,7 +1,6 @@
 <?php
 use Gt\Cipher\EncryptedUri;
 use Gt\Cipher\KeyPair;
-use Gt\Cipher\Message\EncryptedMessage;
 use Gt\Cipher\Message\PlainTextMessage;
 
 require("vendor/autoload.php");
