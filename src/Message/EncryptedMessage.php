@@ -1,6 +1,7 @@
 <?php
 namespace Gt\Cipher\Message;
 
+use Gt\Cipher\CipherException;
 use Gt\Cipher\PrivateKey;
 use Gt\Cipher\PublicKey;
 
@@ -14,10 +15,13 @@ class EncryptedMessage extends AbstractMessage {
 			$senderPublicKey,
 		);
 		$decrypted = sodium_crypto_box_open(
-			hex2bin($this->data),
+			base64_decode($this->data),
 			$this->iv->getBytes(),
 			$unlockingKeyPair,
 		);
+		if($decrypted === false) {
+			throw new DecryptionFailureException("Error");
+		}
 		return new PlainTextMessage(
 			$decrypted,
 			$this->iv,

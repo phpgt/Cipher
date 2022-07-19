@@ -6,11 +6,13 @@ use Gt\Cipher\KeyPair;
 use Stringable;
 
 abstract class AbstractMessage implements Stringable {
+	protected InitVector $iv;
+
 	public function __construct(
 		protected string $data,
-		protected ?InitVector $iv = null,
+		?InitVector $iv = null,
 	) {
-		$this->iv = $this->iv ?? new InitVector();
+		$this->iv = $iv ?? new InitVector();
 	}
 
 	public function __toString():string {
