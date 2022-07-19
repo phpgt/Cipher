@@ -25,10 +25,10 @@ class PlainTextMessageTest extends TestCase {
 		$sut = new PlainTextMessage($data, $iv);
 
 		$senderPrivateKey = self::createMock(PrivateKey::class);
-		$senderPrivateKey->method("__toString")
+		$senderPrivateKey->method("getBytes")
 			->willReturn(str_repeat("1", SODIUM_CRYPTO_BOX_SECRETKEYBYTES));
 		$receiverPublicKey = self::createMock(PublicKey::class);
-		$receiverPublicKey->method("__toString")
+		$receiverPublicKey->method("getBytes")
 			->willReturn(str_repeat("2", SODIUM_CRYPTO_BOX_PUBLICKEYBYTES));
 
 		self::assertInstanceOf(CipherText::class, $sut->encrypt(

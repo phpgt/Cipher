@@ -20,12 +20,12 @@ class CipherTextTest extends TestCase {
 			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_NONCEBYTES));
 		$keyPair = self::createMock(KeyPair::class);
 		$privateKey = self::createMock(PrivateKey::class);
-		$privateKey->method("__toString")
+		$privateKey->method("getBytes")
 			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_SECRETKEYBYTES));
 		$keyPair->method("getPrivateKey")
 			->willReturn($privateKey);
 		$publicKey = self::createMock(PublicKey::class);
-		$publicKey->method("__toString")
+		$publicKey->method("getBytes")
 			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_PUBLICKEYBYTES));
 		$keyPair->method("getPublicKey")
 			->willReturn($publicKey);
