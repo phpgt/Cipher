@@ -23,7 +23,7 @@ class CipherText implements Stringable {
 	}
 
 	public function __toString():string {
-		return bin2hex($this->getBytes());
+		return base64_encode($this->getBytes());
 	}
 
 	public function getBytes():string {

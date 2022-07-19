@@ -26,6 +26,6 @@ class InitVector implements Stringable {
 	}
 
 	public function __toString():string {
-		return bin2hex($this->bytes);
+		return base64_encode($this->bytes);
 	}
 }
