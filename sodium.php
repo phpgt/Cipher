@@ -1,5 +1,5 @@
 <?php
-$messageToTransmit = "This message will be sent to from sender to receiver, via Sodium!";
+$messageToTransmit = "This message will be sent from sender to receiver, via Sodium!";
 
 $senderKeyPair = sodium_crypto_box_keypair();
 $senderPublicKey = sodium_crypto_box_publickey($senderKeyPair);

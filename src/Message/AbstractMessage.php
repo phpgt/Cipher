@@ -1,17 +1,23 @@
 <?php
-namespace Gt\Cipher;
+namespace Gt\Cipher\Message;
 
+use Gt\Cipher\InitVector;
+use Gt\Cipher\KeyPair;
 use Stringable;
 
 abstract class AbstractMessage implements Stringable {
 	public function __construct(
 		protected string $data,
-		protected ?KeyPair $keyPair = null,
 		protected ?InitVector $iv = null,
 	) {
-		$this->keyPair = $this->keyPair ?? new KeyPair();
 		$this->iv = $this->iv ?? new InitVector();
 	}
 
-	abstract public function __toString():string;
+	public function __toString():string {
+		return $this->data;
+	}
+
+	public function getIv():InitVector {
+		return $this->iv;
+	}
 }

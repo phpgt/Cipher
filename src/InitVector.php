@@ -7,7 +7,7 @@ class InitVector implements Stringable {
 	private string $bytes;
 
 	public function __construct(
-		int $byteLength = 16
+		int $byteLength = SODIUM_CRYPTO_BOX_NONCEBYTES
 	) {
 		if($byteLength < 1) {
 			throw new CipherException("IV byte length must be greater than 1");
