@@ -27,7 +27,6 @@ $incomingUri = (string)$uri;
 $encryptedUri = new EncryptedUri(
 	$uri,
 	$receiverKeyPair->getPrivateKey(),
-	$senderKeyPair->getPublicKey(),
 );
 $plainTextMessage = $encryptedUri->decryptMessage();
 
