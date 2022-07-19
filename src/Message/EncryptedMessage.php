@@ -20,7 +20,7 @@ class EncryptedMessage extends AbstractMessage {
 			$unlockingKeyPair,
 		);
 		if($decrypted === false) {
-			throw new DecryptionFailureException("Error");
+			throw new DecryptionFailureException("Error decrypting cipher message");
 		}
 		return new PlainTextMessage(
 			$decrypted,
