@@ -9,11 +9,11 @@ use Psr\Http\Message\UriInterface;
 class EncryptedUri {
 	private string $encryptedBytes;
 	private InitVector $iv;
-	private string $unlockingKeyPairBytes;
+	private Key $key;
 
 	public function __construct(
 		string|UriInterface $uri,
-		PrivateKey $receiverPrivateKey,
+		Key $key,
 	) {
 		if(!$uri instanceof UriInterface) {
 			$uri = new Uri($uri);
@@ -35,17 +35,14 @@ class EncryptedUri {
 
 		$this->encryptedBytes = base64_decode(str_replace(" ", "+", $cipher));
 		$this->iv = (new InitVector())->withBytes(base64_decode(str_replace(" ", "+", $iv)));
-		$this->unlockingKeyPairBytes = sodium_crypto_box_keypair_from_secretkey_and_publickey(
-			$receiverPrivateKey->getBytes(),
-			base64_decode(str_replace(" ", "+", $key)),
-		);
+		$this->key = new Key(base64_decode(str_replace(" ", "+", $key)));
 	}
 
 	public function decryptMessage():PlainTextMessage {
-		$decrypted = sodium_crypto_box_open(
+		$decrypted = sodium_crypto_secretbox_open(
 			$this->encryptedBytes,
 			$this->iv->getBytes(),
-			$this->unlockingKeyPairBytes,
+			$this->key->getBytes(),
 		);
 		if($decrypted === false) {
 			throw new DecryptionFailureException("Error decrypting cipher message");

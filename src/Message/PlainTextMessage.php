@@ -2,24 +2,14 @@
 namespace Gt\Cipher\Message;
 
 use Gt\Cipher\CipherText;
-use Gt\Cipher\KeyPair;
-use Gt\Cipher\PrivateKey;
-use Gt\Cipher\PublicKey;
+use Gt\Cipher\Key;
 
 class PlainTextMessage extends AbstractMessage {
-	public function encrypt(
-		PrivateKey $senderPrivateKey,
-		PublicKey $receiverPublicKey,
-	):CipherText {
-		$lockingKeyPair = new KeyPair(
-			$senderPrivateKey,
-			$receiverPublicKey,
-		);
-
+	public function encrypt(Key $key):CipherText {
 		return new CipherText(
 			$this->data,
 			$this->iv,
-			$lockingKeyPair,
+			$key,
 		);
 	}
 }

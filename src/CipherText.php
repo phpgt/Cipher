@@ -11,16 +11,13 @@ class CipherText implements Stringable {
 	public function __construct(
 		string $data,
 		private InitVector $iv,
-		private KeyPair $keyPair,
+		private Key $key,
 	) {
-		$lockingKeyPair = sodium_crypto_box_keypair_from_secretkey_and_publickey(
-			$this->keyPair->getPrivateKey()->getBytes(),
-			$this->keyPair->getPublicKey()->getBytes(),
-		);
-		$this->bytes = sodium_crypto_box(
+
+		$this->bytes = sodium_crypto_secretbox(
 			$data,
 			$this->iv->getBytes(),
-			$lockingKeyPair,
+			$this->key->getBytes(),
 		);
 	}
 
@@ -41,7 +38,7 @@ class CipherText implements Stringable {
 		parse_str($currentQuery, $queryParams);
 		$queryParams["cipher"] = (string)$this;
 		$queryParams["iv"] = (string)$this->iv;
-		$queryParams["key"] = (string)$this->keyPair->getPrivateKey()->getMatchingPublicKey();
+		$queryParams["key"] = (string)$this->key;
 
 		return $baseUri->withQuery(http_build_query($queryParams));
 	}
