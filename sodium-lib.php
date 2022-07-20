@@ -6,7 +6,7 @@ use Gt\Cipher\Message\PlainTextMessage;
 require("vendor/autoload.php");
 
 $sharedKey = new Key();
-$message = new PlainTextMessage("This message will be sent from sender to receiver, via Sodium!");
+$message = new PlainTextMessage("Cipher test!");
 echo "Message to send: $message", PHP_EOL;
 
 $cipherText = $message->encrypt($sharedKey);

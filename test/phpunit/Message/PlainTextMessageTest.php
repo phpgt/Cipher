@@ -4,8 +4,7 @@ namespace Gt\Cipher\Test\Message;
 use Gt\Cipher\CipherText;
 use Gt\Cipher\InitVector;
 use Gt\Cipher\Message\PlainTextMessage;
-use Gt\Cipher\PrivateKey;
-use Gt\Cipher\PublicKey;
+use Gt\Cipher\Key;
 use PHPUnit\Framework\TestCase;
 
 class PlainTextMessageTest extends TestCase {
@@ -21,20 +20,14 @@ class PlainTextMessageTest extends TestCase {
 
 		$iv = self::createMock(InitVector::class);
 		$iv->method("getBytes")
-			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_NONCEBYTES));
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES));
 		$sut = new PlainTextMessage($data, $iv);
 
-		$senderPrivateKey = self::createMock(PrivateKey::class);
-		$senderPrivateKey->method("getBytes")
-			->willReturn(str_repeat("1", SODIUM_CRYPTO_BOX_SECRETKEYBYTES));
-		$receiverPublicKey = self::createMock(PublicKey::class);
-		$receiverPublicKey->method("getBytes")
-			->willReturn(str_repeat("2", SODIUM_CRYPTO_BOX_PUBLICKEYBYTES));
+		$key = self::createMock(Key::class);
+		$key->method("getBytes")
+			->willReturn(str_repeat("1", SODIUM_CRYPTO_SECRETBOX_KEYBYTES));
 
-		self::assertInstanceOf(CipherText::class, $sut->encrypt(
-			$senderPrivateKey,
-			$receiverPublicKey,
-		));
+		self::assertInstanceOf(CipherText::class, $sut->encrypt($key));
 	}
 
 	public function testGetIv():void {

@@ -3,37 +3,27 @@ namespace Gt\Cipher\Test;
 
 use Gt\Cipher\CipherText;
 use Gt\Cipher\InitVector;
-use Gt\Cipher\KeyPair;
-use Gt\Cipher\PrivateKey;
-use Gt\Cipher\PublicKey;
+use Gt\Cipher\Key;
 use PHPUnit\Framework\TestCase;
 
 class CipherTextTest extends TestCase {
 	public function testToString():void {
 // This is the known output when using all zero bytes for the encryption
 // process. The mocked classes all return zero-byte strings for testing.
-		$encryptedDataFromZeroBytes = "nvwP8aCIi9PPvCSiZP9o9gEPFDcSisOaxA==";
+		$encryptedDataFromZeroBytes = "1Mgu+MZ9RWvImPE+cNnQeRI9iMKH+cv63A==";
 
 		$data = "test data";
 		$iv = self::createMock(InitVector::class);
 		$iv->method("getBytes")
-			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_NONCEBYTES));
-		$keyPair = self::createMock(KeyPair::class);
-		$privateKey = self::createMock(PrivateKey::class);
-		$privateKey->method("getBytes")
-			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_SECRETKEYBYTES));
-		$keyPair->method("getPrivateKey")
-			->willReturn($privateKey);
-		$publicKey = self::createMock(PublicKey::class);
-		$publicKey->method("getBytes")
-			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_PUBLICKEYBYTES));
-		$keyPair->method("getPublicKey")
-			->willReturn($publicKey);
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES));
+		$key = self::createMock(Key::class);
+		$key->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_KEYBYTES));
 
 		$sut = new CipherText(
 			$data,
 			$iv,
-			$keyPair,
+			$key,
 		);
 		self::assertSame($encryptedDataFromZeroBytes, (string)$sut);
 	}
