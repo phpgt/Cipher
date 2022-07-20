@@ -5,8 +5,8 @@ use Gt\Cipher\Message\PlainTextMessage;
 
 require("vendor/autoload.php");
 
-$sharedKey = new Key();
-$message = new PlainTextMessage("This message will be sent from sender to receiver, via Sodium!");
+$sharedKey = new Key(str_repeat("0", 32));
+$message = new PlainTextMessage("Cipher test!");
 echo "Message to send: $message", PHP_EOL;
 
 $cipherText = $message->encrypt($sharedKey);
@@ -19,6 +19,6 @@ echo "URI: $uri", PHP_EOL;
 // The following code represents the receiving side of the platform:
 $incomingUri = (string)$uri;
 $encryptedUri = new EncryptedUri($uri);
-$plainTextMessage = $encryptedUri->decryptMessage();
+$plainTextMessage = $encryptedUri->decryptMessage($sharedKey);
 
 echo "Decrypted: $plainTextMessage", PHP_EOL;

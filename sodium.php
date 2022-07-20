@@ -1,5 +1,5 @@
 <?php
-$messageToTransmit = "This message will be sent from sender to receiver, via Sodium!";
+$messageToTransmit = "Cipher test!";
 $sharedKey = random_bytes(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
 $iv = random_bytes(SODIUM_CRYPTO_SECRETBOX_NONCEBYTES);
 

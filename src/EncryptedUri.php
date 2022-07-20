@@ -21,27 +21,22 @@ class EncryptedUri {
 		parse_str($uri->getQuery(), $queryParams);
 		$cipher = $queryParams["cipher"] ?? null;
 		$iv = $queryParams["iv"] ?? null;
-		$key = $queryParams["key"] ?? null;
-		if(!$cipher) {
+		if(!$cipher || !is_string($cipher)) {
 			throw new MissingQueryStringException("cipher");
 		}
-		if(!$iv) {
+		if(!$iv || !is_string($iv)) {
 			throw new MissingQueryStringException("iv");
-		}
-		if(!$key) {
-			throw new MissingQueryStringException("key");
 		}
 
 		$this->encryptedBytes = base64_decode(str_replace(" ", "+", $cipher));
 		$this->iv = (new InitVector())->withBytes(base64_decode(str_replace(" ", "+", $iv)));
-		$this->key = new Key(base64_decode(str_replace(" ", "+", $key)));
 	}
 
-	public function decryptMessage():PlainTextMessage {
+	public function decryptMessage(Key $key):PlainTextMessage {
 		$decrypted = sodium_crypto_secretbox_open(
 			$this->encryptedBytes,
 			$this->iv->getBytes(),
-			$this->key->getBytes(),
+			$key->getBytes(),
 		);
 		if($decrypted === false) {
 			throw new DecryptionFailureException("Error decrypting cipher message");
