@@ -27,4 +27,28 @@ class CipherTextTest extends TestCase {
 		);
 		self::assertSame($encryptedDataFromZeroBytes, (string)$sut);
 	}
+
+	public function testGetUri():void {
+		$data = "Example message";
+		$baseUri = "https://example.com";
+
+		$iv = self::createMock(InitVector::class);
+		$iv->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES));
+		$iv->method("__toString")
+			->willReturn(base64_encode($iv->getBytes()));
+		$key = self::createMock(Key::class);
+		$key->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_KEYBYTES));
+		$sut = new CipherText($data, $iv, $key);
+
+		$expectedQueryParts = [
+			"cipher" => base64_encode($sut->getBytes()),
+			"iv" => base64_encode($iv->getBytes()),
+		];
+
+		$uri = $sut->getUri($baseUri);
+		self::assertSame($baseUri, $uri->getScheme() . "://" . $uri->getAuthority());
+		self::assertSame(http_build_query($expectedQueryParts), $uri->getQuery());
+	}
 }
