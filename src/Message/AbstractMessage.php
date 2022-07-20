@@ -2,7 +2,6 @@
 namespace Gt\Cipher\Message;
 
 use Gt\Cipher\InitVector;
-use Gt\Cipher\KeyPair;
 use Stringable;
 
 abstract class AbstractMessage implements Stringable {

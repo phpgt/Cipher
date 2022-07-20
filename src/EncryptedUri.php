@@ -13,7 +13,6 @@ class EncryptedUri {
 
 	public function __construct(
 		string|UriInterface $uri,
-		Key $key,
 	) {
 		if(!$uri instanceof UriInterface) {
 			$uri = new Uri($uri);
