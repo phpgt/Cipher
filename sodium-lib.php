@@ -16,6 +16,11 @@ $cipherText = $message->encrypt(
 	$receiverKeyPair->getPublicKey(),
 );
 echo "Cipher: $cipherText", PHP_EOL;
+echo "IV: ", $message->getIv(), PHP_EOL;
+echo "Sender priv:", $senderKeyPair->getPrivateKey(), PHP_EOL;
+echo "Sender pub: ", $senderKeyPair->getPublicKey(), PHP_EOL;
+echo "Receiver priv: ", $receiverKeyPair->getPrivateKey(), PHP_EOL;
+echo "Receiver pub: ", $receiverKeyPair->getPublicKey(), PHP_EOL;
 
 $encryptedMessage = new EncryptedMessage($cipherText, $message->getIv());
 $decrypted = $encryptedMessage->decrypt(
