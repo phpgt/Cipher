@@ -9,7 +9,6 @@ use Psr\Http\Message\UriInterface;
 class EncryptedUri {
 	private string $encryptedBytes;
 	private InitVector $iv;
-	private Key $key;
 
 	public function __construct(
 		string|UriInterface $uri,
