@@ -10,7 +10,7 @@ $message = new PlainTextMessage("Cipher test!");
 echo "Message to send: $message", PHP_EOL;
 
 $cipherText = $message->encrypt($sharedKey);
-$uri = $cipherText->getUri("https://example.com/");
+$uri = $cipherText->getUri("https://cipher-test.g105b.com/");
 echo "Key: $sharedKey", PHP_EOL;
 echo "URI: $uri", PHP_EOL;
 
