@@ -18,7 +18,7 @@ echo "URI: $uri", PHP_EOL;
 
 // The following code represents the receiving side of the platform:
 $incomingUri = (string)$uri;
-$encryptedUri = new EncryptedUri($uri, $sharedKey);
+$encryptedUri = new EncryptedUri($uri);
 $plainTextMessage = $encryptedUri->decryptMessage();
 
 echo "Decrypted: $plainTextMessage", PHP_EOL;
