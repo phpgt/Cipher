@@ -1,20 +1,15 @@
 <?php
 use Gt\Cipher\EncryptedUri;
-use Gt\Cipher\KeyPair;
+use Gt\Cipher\Key;
 use Gt\Cipher\Message\PlainTextMessage;
 
 require("vendor/autoload.php");
 
-$senderKeyPair = new KeyPair();
-$receiverKeyPair = new KeyPair();
-
+$sharedKey = new Key();
 $message = new PlainTextMessage("This message will be sent from sender to receiver, via Sodium!");
 echo "Message to send: $message", PHP_EOL;
 
-$cipherText = $message->encrypt(
-	$senderKeyPair->getPrivateKey(),
-	$receiverKeyPair->getPublicKey(),
-);
+$cipherText = $message->encrypt($sharedKey);
 $uri = $cipherText->getUri("https://example.com/");
 echo "URI: $uri", PHP_EOL;
 
@@ -23,10 +18,7 @@ echo "URI: $uri", PHP_EOL;
 
 // The following code represents the receiving side of the platform:
 $incomingUri = (string)$uri;
-$encryptedUri = new EncryptedUri(
-	$uri,
-	$receiverKeyPair->getPrivateKey(),
-);
+$encryptedUri = new EncryptedUri($uri, $sharedKey);
 $plainTextMessage = $encryptedUri->decryptMessage();
 
 echo "Decrypted: $plainTextMessage", PHP_EOL;
