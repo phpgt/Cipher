@@ -5,12 +5,13 @@ use Gt\Cipher\Message\PlainTextMessage;
 
 require("vendor/autoload.php");
 
-$sharedKey = new Key(str_repeat("0", 32));
+$sharedKey = new Key();
 $message = new PlainTextMessage("Cipher test!");
 echo "Message to send: $message", PHP_EOL;
 
 $cipherText = $message->encrypt($sharedKey);
 $uri = $cipherText->getUri("https://example.com/");
+echo "Key: $sharedKey", PHP_EOL;
 echo "URI: $uri", PHP_EOL;
 
 // At this point, the remote code at example.com has access to the encrypted
