@@ -17,10 +17,10 @@ class InitVectorTest extends TestCase {
 		self::assertSame(16, strlen($sut->getBytes()));
 	}
 
-	public function testToString_isHex():void {
+	public function testToString_isBase64():void {
 		$sut = new InitVector(16);
-		$hex = (string)$sut;
-		self::assertMatchesRegularExpression("/[0-9a-f]{32}/", $hex);
+		$base64 = (string)$sut;
+		self::assertNotFalse(base64_decode($base64));
 	}
 
 	public function testWithBytes():void {
