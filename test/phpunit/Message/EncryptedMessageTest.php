@@ -51,4 +51,25 @@ class EncryptedMessageTest extends TestCase {
 			$senderPublicKey,
 		);
 	}
+
+	public function testDecrypt_incorrectKeySize():void {
+		$iv = self::createMock(InitVector::class);
+		$iv->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_NONCEBYTES - 2));
+		$sut = new EncryptedMessage("badly formed data", $iv);
+
+		$receiverPrivateKey = self::createMock(PrivateKey::class);
+		$receiverPrivateKey->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_SECRETKEYBYTES));
+		$senderPublicKey = self::createMock(PublicKey::class);
+		$senderPublicKey->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_BOX_PUBLICKEYBYTES));
+
+		self::expectExceptionMessage("sodium_crypto_box_open(): Argument #2 (\$nonce) must be SODIUM_CRYPTO_BOX_NONCEBYTES bytes long");
+		self::expectException(DecryptionFailureException::class);
+		$sut->decrypt(
+			$receiverPrivateKey,
+			$senderPublicKey,
+		);
+	}
 }
