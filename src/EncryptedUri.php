@@ -12,19 +12,21 @@ class EncryptedUri {
 
 	public function __construct(
 		string|UriInterface $uri,
+		string $cipherQueryStringParameter = "cipher",
+		string $initVectorStringParameter = "iv",
 	) {
 		if(!$uri instanceof UriInterface) {
 			$uri = new Uri($uri);
 		}
 
 		parse_str($uri->getQuery(), $queryParams);
-		$cipher = $queryParams["cipher"] ?? null;
-		$iv = $queryParams["iv"] ?? null;
+		$cipher = $queryParams[$cipherQueryStringParameter] ?? null;
+		$iv = $queryParams[$initVectorStringParameter] ?? null;
 		if(!$cipher || !is_string($cipher)) {
-			throw new MissingQueryStringException("cipher");
+			throw new MissingQueryStringException($cipherQueryStringParameter);
 		}
 		if(!$iv || !is_string($iv)) {
-			throw new MissingQueryStringException("iv");
+			throw new MissingQueryStringException($initVectorStringParameter);
 		}
 
 		$this->encryptedBytes = base64_decode(str_replace(" ", "+", $cipher));
