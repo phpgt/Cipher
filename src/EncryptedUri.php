@@ -30,7 +30,12 @@ class EncryptedUri {
 		}
 
 		$this->encryptedBytes = base64_decode(str_replace(" ", "+", $cipher));
-		$this->iv = (new InitVector())->withBytes(base64_decode(str_replace(" ", "+", $iv)));
+		$this->iv = (new InitVector())
+			->withBytes(
+				base64_decode(
+					str_replace(" ", "+", $iv)
+				)
+			);
 	}
 
 	public function decryptMessage(Key $key):PlainTextMessage {

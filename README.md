@@ -14,10 +14,10 @@ The `CipherText` class also exposes a `getUri()` function, for creating a pre-en
 <a href="https://github.com/PhpGt/Cipher/actions" target="_blank">
 	<img src="https://badge.status.php.gt/cipher-build.svg" alt="Build status" />
 </a>
-<a href="https://scrutinizer-ci.com/g/PhpGt/Cipher" target="_blank">
+<a href="https://app.codacy.com/gh/PhpGt/Cipher" target="_blank">
 	<img src="https://badge.status.php.gt/cipher-quality.svg" alt="Code quality" />
 </a>
-<a href="https://scrutinizer-ci.com/g/PhpGt/Cipher" target="_blank">
+<a href="https://app.codecov.io/gh/PhpGt/Cipher" target="_blank">
 	<img src="https://badge.status.php.gt/cipher-coverage.svg" alt="Code coverage" />
 </a>
 <a href="https://packagist.org/packages/PhpGt/Cipher" target="_blank">
