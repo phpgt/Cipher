@@ -41,4 +41,18 @@ class EncryptedMessageTest extends TestCase {
 		self::expectException(DecryptionFailureException::class);
 		$sut->decrypt($key);
 	}
+
+	public function testDecrypt_wrapsSodiumFailure():void {
+		$iv = self::createMock(InitVector::class);
+		$iv->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES));
+		$sut = new EncryptedMessage("badly formed data", $iv);
+
+		$key = self::createMock(Key::class);
+		$key->method("getBytes")
+			->willReturn("bad");
+
+		self::expectException(DecryptionFailureException::class);
+		$sut->decrypt($key);
+	}
 }

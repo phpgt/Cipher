@@ -2,6 +2,7 @@
 namespace Gt\Cipher\Test;
 
 use Gt\Cipher\CipherText;
+use Gt\Cipher\EncryptionFailureException;
 use Gt\Cipher\InitVector;
 use Gt\Cipher\Key;
 use PHPUnit\Framework\TestCase;
@@ -50,5 +51,18 @@ class CipherTextTest extends TestCase {
 		$uri = $sut->getUri($baseUri);
 		self::assertSame($baseUri, $uri->getScheme() . "://" . $uri->getAuthority());
 		self::assertSame(http_build_query($expectedQueryParts), $uri->getQuery());
+	}
+
+	public function testConstruct_wrapsSodiumFailure():void {
+		$data = "test data";
+		$iv = self::createMock(InitVector::class);
+		$iv->method("getBytes")
+			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES));
+		$key = self::createMock(Key::class);
+		$key->method("getBytes")
+			->willReturn("bad");
+
+		self::expectException(EncryptionFailureException::class);
+		new CipherText($data, $iv, $key);
 	}
 }

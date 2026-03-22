@@ -4,8 +4,8 @@ namespace Gt\Cipher\Test;
 use Gt\Cipher\EncryptedUri;
 use Gt\Cipher\InitVector;
 use Gt\Cipher\Key;
-use Gt\Cipher\Message\DecryptionFailureException;
 use Gt\Cipher\MissingQueryStringException;
+use Gt\Cipher\UriDecryptionFailureException;
 use PHPUnit\Framework\TestCase;
 
 class EncryptedUriTest extends TestCase {
@@ -38,19 +38,38 @@ class EncryptedUriTest extends TestCase {
 	}
 
 	public function testDecryptMessage_error():void {
-		$ivString = base64_encode(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES));
+		$ivString = base64_encode(
+			str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES)
+		);
 		$uri = "https://example.com/test/?cipher=0000&iv=$ivString";
 		$sut = new EncryptedUri($uri);
 
 		$key = self::createMock(Key::class);
 		$key->method("getBytes")
 			->willReturn(str_repeat("0", SODIUM_CRYPTO_SECRETBOX_KEYBYTES));
-		self::expectException(DecryptionFailureException::class);
+		self::expectException(UriDecryptionFailureException::class);
+		$sut->decryptMessage($key);
+	}
+
+	public function testDecryptMessage_wrapsSodiumFailure():void {
+		$ivString = base64_encode(
+			str_repeat("0", SODIUM_CRYPTO_SECRETBOX_NONCEBYTES)
+		);
+		$uri = "https://example.com/test/?cipher=0000&iv=$ivString";
+		$sut = new EncryptedUri($uri);
+
+		$key = self::createMock(Key::class);
+		$key->method("getBytes")
+			->willReturn("bad");
+
+		self::expectException(UriDecryptionFailureException::class);
 		$sut->decryptMessage($key);
 	}
 
 	public function testDecryptMessage():void {
-		$uri = "https://example.com/?cipher=lmEClve%2FuhmK32ghM0%2BA%2FI%2Btysm00AL37YD6eg%3D%3D&iv=UVunn3laPVnK4CfHZuS2AnvJ1KfsPM1r";
+		$uri = "https://example.com/"
+			. "?cipher=lmEClve%2FuhmK32ghM0%2BA%2FI%2Btysm00AL37YD6eg%3D%3D"
+			. "&iv=UVunn3laPVnK4CfHZuS2AnvJ1KfsPM1r";
 		$sut = new EncryptedUri($uri);
 
 		$key = self::createMock(Key::class);

@@ -4,6 +4,7 @@ namespace Gt\Cipher;
 use Gt\Http\Uri;
 use Psr\Http\Message\UriInterface;
 use Stringable;
+use Throwable;
 
 class CipherText implements Stringable {
 	private string $bytes;
@@ -13,12 +14,19 @@ class CipherText implements Stringable {
 		private InitVector $iv,
 		private Key $key,
 	) {
-
-		$this->bytes = sodium_crypto_secretbox(
-			$data,
-			$this->iv->getBytes(),
-			$this->key->getBytes(),
-		);
+		try {
+			$this->bytes = sodium_crypto_secretbox(
+				$data,
+				$this->iv->getBytes(),
+				$this->key->getBytes(),
+			);
+		}
+		catch(Throwable $throwable) {
+			throw new EncryptionFailureException(
+				"Error encrypting cipher message",
+				previous: $throwable,
+			);
+		}
 	}
 
 	public function __toString():string {

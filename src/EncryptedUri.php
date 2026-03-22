@@ -1,10 +1,10 @@
 <?php
 namespace Gt\Cipher;
 
-use Gt\Cipher\Message\DecryptionFailureException;
 use Gt\Cipher\Message\PlainTextMessage;
 use Gt\Http\Uri;
 use Psr\Http\Message\UriInterface;
+use Throwable;
 
 class EncryptedUri {
 	private string $encryptedBytes;
@@ -39,13 +39,21 @@ class EncryptedUri {
 	}
 
 	public function decryptMessage(Key $key):PlainTextMessage {
-		$decrypted = sodium_crypto_secretbox_open(
-			$this->encryptedBytes,
-			$this->iv->getBytes(),
-			$key->getBytes(),
-		);
+		try {
+			$decrypted = sodium_crypto_secretbox_open(
+				$this->encryptedBytes,
+				$this->iv->getBytes(),
+				$key->getBytes(),
+			);
+		}
+		catch(Throwable $throwable) {
+			throw new UriDecryptionFailureException(
+				"Error decrypting cipher URI",
+				previous: $throwable,
+			);
+		}
 		if($decrypted === false) {
-			throw new DecryptionFailureException("Error decrypting cipher message");
+			throw new UriDecryptionFailureException("Error decrypting cipher URI");
 		}
 		return new PlainTextMessage(
 			$decrypted,
