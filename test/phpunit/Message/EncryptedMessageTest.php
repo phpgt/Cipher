@@ -13,6 +13,13 @@ class EncryptedMessageTest extends TestCase {
 		self::assertSame("0000", (string)$sut);
 	}
 
+	public function testConstruct_withBase64IvString():void {
+		$ivBytes = base64_decode("8Zf3DaE343vn3LLDiyTlFCS6iFP4RVMw");
+		$sut = new EncryptedMessage("0000", base64_encode($ivBytes));
+
+		self::assertSame($ivBytes, $sut->getIv()->getBytes());
+	}
+
 	/** @noinspection SpellCheckingInspection */
 	public function testDecrypt():void {
 		$iv = self::createMock(InitVector::class);
@@ -54,5 +61,11 @@ class EncryptedMessageTest extends TestCase {
 
 		self::expectException(DecryptionFailureException::class);
 		$sut->decrypt($key);
+	}
+
+	public function testConstruct_invalidBase64IvString():void {
+		self::expectException(\GT\Cipher\CipherException::class);
+		self::expectExceptionMessage("IV must be a valid base64 string");
+		new EncryptedMessage("0000", "%%%");
 	}
 }
