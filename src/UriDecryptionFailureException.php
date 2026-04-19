@@ -1,4 +1,4 @@
 <?php
-namespace Gt\Cipher;
+namespace GT\Cipher;
 
 class UriDecryptionFailureException extends CipherException {}

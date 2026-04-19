@@ -1,10 +1,10 @@
 <?php
-namespace Gt\Cipher\Test\Message;
+namespace GT\Cipher\Test\Message;
 
-use Gt\Cipher\CipherText;
-use Gt\Cipher\InitVector;
-use Gt\Cipher\Message\PlainTextMessage;
-use Gt\Cipher\Key;
+use GT\Cipher\CipherText;
+use GT\Cipher\InitVector;
+use GT\Cipher\Message\PlainTextMessage;
+use GT\Cipher\Key;
 use PHPUnit\Framework\TestCase;
 
 class PlainTextMessageTest extends TestCase {

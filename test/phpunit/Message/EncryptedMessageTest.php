@@ -1,10 +1,10 @@
 <?php
-namespace Gt\Cipher\Test\Message;
+namespace GT\Cipher\Test\Message;
 
-use Gt\Cipher\InitVector;
-use Gt\Cipher\Message\DecryptionFailureException;
-use Gt\Cipher\Message\EncryptedMessage;
-use Gt\Cipher\Key;
+use GT\Cipher\InitVector;
+use GT\Cipher\Message\DecryptionFailureException;
+use GT\Cipher\Message\EncryptedMessage;
+use GT\Cipher\Key;
 use PHPUnit\Framework\TestCase;
 
 class EncryptedMessageTest extends TestCase {

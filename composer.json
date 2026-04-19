@@ -21,7 +21,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Gt\\Cipher\\Test\\": "./test/phpunit"
+			"GT\\Cipher\\Test\\": "./test/phpunit"
 		}
 	},
 

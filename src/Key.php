@@ -1,5 +1,5 @@
 <?php
-namespace Gt\Cipher;
+namespace GT\Cipher;
 
 use Stringable;
 

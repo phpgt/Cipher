@@ -1,7 +1,7 @@
 <?php
-use Gt\Cipher\Key;
-use Gt\Cipher\Message\EncryptedMessage;
-use Gt\Cipher\Message\PlainTextMessage;
+use GT\Cipher\Key;
+use GT\Cipher\Message\EncryptedMessage;
+use GT\Cipher\Message\PlainTextMessage;
 
 require("vendor/autoload.php");
 

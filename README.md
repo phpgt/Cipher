@@ -32,8 +32,8 @@ The `CipherText` class also exposes a `getUri()` function, for creating a pre-en
 `sender.php`:
 
 ```php
-use \Gt\Cipher\Message\PlainTextMessage;
-use \Gt\Cipher\Message\EncryptedMessage;
+use \GT\Cipher\Message\PlainTextMessage;
+use \GT\Cipher\Message\EncryptedMessage;
 
 $privateKey = "This can be any string, but a long random string is best.";
 
@@ -46,7 +46,7 @@ header("Location: " . $cipherText->getUri("/receiver.php"));
 
 ```php
 // This key must be the same on the sender and receiver!
-use Gt\Cipher\EncryptedUri;
+use GT\Cipher\EncryptedUri;
 
 $privateKey = "This can be any string, but a long random string is best.";
 
