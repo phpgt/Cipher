@@ -1,13 +1,13 @@
 Two-way encryption of messages for secure plain text transmission.
 ==================================================================
 
-When messages are passed between two systems via a public network, encryption tools must be used to secure the communication channel. The process of encrypting and decrypting a message is complex and prone to errors, but is simplified in this repository by providing the `PlainTextMessage` and `EncryptedMessage` class abstractions.
+When messages are passed between two systems over a public network, encryption tools are needed to protect the content in transit. Encrypting and decrypting messages correctly can be fiddly and error-prone, so this library keeps the process small and explicit through the `PlainTextMessage`, `EncryptedMessage`, `CipherText`, `Key`, and `InitVector` abstractions.
 
-Pass your secret message to the `PlainTextMessage` constructor along with a private key, and you can call `encrypt()` to convert it into an `EncryptedMessage`. An `EncryptedMessage` is represented by a Cipher and IV value via the `getCipherText()` and `getIv()` functions. These two strings can be passed to the receiver by any communication mechanism, safe in the knowledge that the contents can not be read without the private key.
+Pass your secret message to the `PlainTextMessage` constructor, then call `encrypt()` with a shared `Key` to produce a `CipherText`. The encrypted payload is represented by the cipher text itself plus the IV returned by `getIv()`. Those values can then be passed to the receiver by any communication mechanism, with only the holder of the same shared key able to decrypt the original message.
 
-On the receiver, construct another `EncryptedMessage` with the incoming cipher and IV, and the original message can be read using `decrypt()` 
+On the receiving side, construct an `EncryptedMessage` with the incoming cipher text and IV, then call `decrypt()` with the same `Key` to recover the original plain text.
 
-The `CipherText` class also exposes a `getUri()` function, for creating a pre-encoded URI. A URI with `cipher` and `iv` querystring parameters can be passed to the `EncryptedUri` class to decrypt back into a `PlainTextMessage`.
+The `CipherText` class also provides a `getUri()` method for creating a pre-encoded URI. A URI containing `cipher` and `iv` query string parameters can then be passed to `EncryptedUri` and decrypted back into a `PlainTextMessage`.
 
 ***
 
