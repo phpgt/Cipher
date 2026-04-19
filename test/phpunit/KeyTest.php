@@ -1,7 +1,7 @@
 <?php
-namespace Gt\Cipher\Test;
+namespace GT\Cipher\Test;
 
-use Gt\Cipher\Key;
+use GT\Cipher\Key;
 use PHPUnit\Framework\TestCase;
 
 class KeyTest extends TestCase {

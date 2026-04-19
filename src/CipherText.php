@@ -1,5 +1,5 @@
 <?php
-namespace Gt\Cipher;
+namespace GT\Cipher;
 
 use Gt\Http\Uri;
 use Psr\Http\Message\UriInterface;

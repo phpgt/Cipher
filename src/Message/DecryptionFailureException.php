@@ -1,6 +1,6 @@
 <?php
-namespace Gt\Cipher\Message;
+namespace GT\Cipher\Message;
 
-use Gt\Cipher\CipherException;
+use GT\Cipher\CipherException;
 
 class DecryptionFailureException extends CipherException {}

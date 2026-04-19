@@ -1,7 +1,7 @@
 <?php
-namespace Gt\Cipher\Message;
+namespace GT\Cipher\Message;
 
-use Gt\Cipher\InitVector;
+use GT\Cipher\InitVector;
 use Stringable;
 
 abstract class AbstractMessage implements Stringable {

@@ -1,7 +1,7 @@
 <?php
-namespace Gt\Cipher\Message;
+namespace GT\Cipher\Message;
 
-use Gt\Cipher\Key;
+use GT\Cipher\Key;
 use Throwable;
 
 class EncryptedMessage extends AbstractMessage {

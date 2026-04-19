@@ -1,7 +1,7 @@
 <?php
-namespace Gt\Cipher;
+namespace GT\Cipher;
 
-use Gt\Cipher\Message\PlainTextMessage;
+use GT\Cipher\Message\PlainTextMessage;
 use Gt\Http\Uri;
 use Psr\Http\Message\UriInterface;
 use Throwable;

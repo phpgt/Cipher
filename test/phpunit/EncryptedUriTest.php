@@ -1,11 +1,11 @@
 <?php
-namespace Gt\Cipher\Test;
+namespace GT\Cipher\Test;
 
-use Gt\Cipher\EncryptedUri;
-use Gt\Cipher\InitVector;
-use Gt\Cipher\Key;
-use Gt\Cipher\MissingQueryStringException;
-use Gt\Cipher\UriDecryptionFailureException;
+use GT\Cipher\EncryptedUri;
+use GT\Cipher\InitVector;
+use GT\Cipher\Key;
+use GT\Cipher\MissingQueryStringException;
+use GT\Cipher\UriDecryptionFailureException;
 use PHPUnit\Framework\TestCase;
 
 class EncryptedUriTest extends TestCase {

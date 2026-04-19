@@ -1,10 +1,10 @@
 <?php
-namespace Gt\Cipher\Test;
+namespace GT\Cipher\Test;
 
-use Gt\Cipher\CipherText;
-use Gt\Cipher\EncryptionFailureException;
-use Gt\Cipher\InitVector;
-use Gt\Cipher\Key;
+use GT\Cipher\CipherText;
+use GT\Cipher\EncryptionFailureException;
+use GT\Cipher\InitVector;
+use GT\Cipher\Key;
 use PHPUnit\Framework\TestCase;
 
 class CipherTextTest extends TestCase {

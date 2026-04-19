@@ -1,8 +1,8 @@
 <?php
-namespace Gt\Cipher\Test;
+namespace GT\Cipher\Test;
 
-use Gt\Cipher\CipherException;
-use Gt\Cipher\InitVector;
+use GT\Cipher\CipherException;
+use GT\Cipher\InitVector;
 use PHPUnit\Framework\TestCase;
 
 class InitVectorTest extends TestCase {

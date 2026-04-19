@@ -1,6 +1,6 @@
 <?php
-use Gt\Cipher\EncryptionFailureException;
-use Gt\Cipher\Message\DecryptionFailureException;
+use GT\Cipher\EncryptionFailureException;
+use GT\Cipher\Message\DecryptionFailureException;
 
 require("vendor/autoload.php");
 

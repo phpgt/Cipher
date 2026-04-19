@@ -1,8 +1,8 @@
 <?php
-namespace Gt\Cipher\Message;
+namespace GT\Cipher\Message;
 
-use Gt\Cipher\CipherText;
-use Gt\Cipher\Key;
+use GT\Cipher\CipherText;
+use GT\Cipher\Key;
 
 class PlainTextMessage extends AbstractMessage {
 	public function encrypt(Key $key):CipherText {
