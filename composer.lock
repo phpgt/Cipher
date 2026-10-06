@@ -321,16 +321,16 @@
         },
         {
             "name": "phpgt/http",
-            "version": "v1.3.8",
+            "version": "v1.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpgt/Http.git",
-                "reference": "5e12783b8a339340fd886217a805ae70bbf82b23"
+                "reference": "eca66ac787bae767d2ff0363c5b243f809619ec4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpgt/Http/zipball/5e12783b8a339340fd886217a805ae70bbf82b23",
-                "reference": "5e12783b8a339340fd886217a805ae70bbf82b23",
+                "url": "https://api.github.com/repos/phpgt/Http/zipball/eca66ac787bae767d2ff0363c5b243f809619ec4",
+                "reference": "eca66ac787bae767d2ff0363c5b243f809619ec4",
                 "shasum": ""
             },
             "require": {
@@ -362,6 +362,7 @@
             },
             "autoload": {
                 "psr-4": {
+                    "GT\\Http\\": "./src",
                     "Gt\\Http\\": "./src"
                 }
             },
@@ -372,7 +373,7 @@
             "description": "PSR-7 HTTP message implementation.",
             "support": {
                 "issues": "https://github.com/phpgt/Http/issues",
-                "source": "https://github.com/phpgt/Http/tree/v1.3.8"
+                "source": "https://github.com/phpgt/Http/tree/v1.3.9"
             },
             "funding": [
                 {
@@ -380,7 +381,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-19T18:22:33+00:00"
+            "time": "2026-04-24T12:58:50+00:00"
         },
         {
             "name": "phpgt/input",
@@ -2780,16 +2781,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "4.0.2",
+            "version": "4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "74ee2d4df09b70996c1e0fafca7079fc0bbb9ec0"
+                "reference": "bbdc3d0532623e21838b7041a4364383a8126f96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/74ee2d4df09b70996c1e0fafca7079fc0bbb9ec0",
-                "reference": "74ee2d4df09b70996c1e0fafca7079fc0bbb9ec0",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/bbdc3d0532623e21838b7041a4364383a8126f96",
+                "reference": "bbdc3d0532623e21838b7041a4364383a8126f96",
                 "shasum": ""
             },
             "require": {
@@ -2860,7 +2861,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2026-08-06T01:00:52+00:00"
+            "time": "2026-08-06T02:45:27+00:00"
         },
         {
             "name": "staabm/side-effects-detector",
