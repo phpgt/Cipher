@@ -2,7 +2,7 @@
 namespace GT\Cipher;
 
 use GT\Cipher\Message\PlainTextMessage;
-use Gt\Http\Uri;
+use GT\Http\Uri;
 use Psr\Http\Message\UriInterface;
 use Throwable;
 
